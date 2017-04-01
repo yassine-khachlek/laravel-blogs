@@ -1,0 +1,25 @@
+{
+    "name": "root/laravel-blogs",
+    "description": "Laravel blog package.",
+    "homepage": "https://github.com/yassine-khachlek/laravel-blogs",
+    "license": "GPLv2",
+    "keywords": [
+        "laravel",
+        "blog"
+    ],
+    "authors": [
+        {
+            "name": "Yassine Khachlek",
+            "email": "yassine.khachlek@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "src/"
+        ],
+        "psr-4": {
+            "Yk\\LaravelBlogs\\": "src/"
+        }
+    }
+}
