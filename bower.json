@@ -1,0 +1,20 @@
+{
+  "name": "laravel-blogs",
+  "authors": [
+    "Yassine Khachlek <yassine.khachlek@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "GPLv2",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}
