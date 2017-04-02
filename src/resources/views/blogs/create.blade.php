@@ -35,6 +35,12 @@
         @endif
 	</div>
 
+	<div class="checkbox">
+		<label>
+			<input name="published" type="checkbox" value="1" {{ old('published') ? 'checked="checked"' : '' }}> Publish
+		</label>
+	</div>
+
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">

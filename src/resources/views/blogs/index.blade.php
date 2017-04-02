@@ -12,6 +12,12 @@
 </div>
 
 <table class="table table-striped table-hover">
+	<thead>
+		<th>ID</th>
+		<th>Title</th>
+		<th></th>
+		<th></th>
+	</thead>
 	<body>
 	@foreach($blogs as $blog)
 		<tr>
@@ -20,6 +26,11 @@
 			</td>
 			<td>
 				{{ $blog->title }}
+			</td>
+			<td>
+				@if($blog->published)
+					<span class="label label-success pull-right">Published</span>
+				@endif
 			</td>
 			<td>
 				<form action="{{ Route::has('blogs.destroy') ? route('blogs.destroy', ['id' => $blog->id]) : '#' }}" method="POST" class="form-inline pull-right">
@@ -52,10 +63,10 @@
 <link href="{{ asset('/vendor/yk/laravel-blogs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
 <style type="text/css">
-	.table :last-child > a {
+	.table > tbody > tr > td:last-child > a {
 		margin-left: 8px;
 	}
-	.table :last-child > form {
+	.table > tbody > tr > td:last-child > form {
 		margin-left: 8px;
 	}
 </style>

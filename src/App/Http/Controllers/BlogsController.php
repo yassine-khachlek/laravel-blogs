@@ -58,6 +58,7 @@ class BlogsController extends Controller
         $blog = new Blog;
         $blog->title = $request->get('title');
         $blog->body = $request->get('body');
+        $blog->published = $request->get('published') ?: false;
 
         $blog->save();
 
@@ -119,6 +120,7 @@ class BlogsController extends Controller
 
         $blog->title = $request->get('title');
         $blog->body = $request->get('body');
+        $blog->published = $request->get('published') ?: false;
 
         $blog->save();
 

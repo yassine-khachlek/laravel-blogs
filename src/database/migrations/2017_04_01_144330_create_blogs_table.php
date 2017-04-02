@@ -29,6 +29,10 @@ class CreateBlogsTable extends Migration
                 $table->text('body');
             }
 
+            if (!Schema::hasColumn($table->getTable(), 'published')) {
+                $table->boolean('published')->default(FALSE);
+            }
+
             if ( ! Schema::hasColumn($table->getTable(), 'created_at') ) {
                 $table->dateTime('created_at');
             }
