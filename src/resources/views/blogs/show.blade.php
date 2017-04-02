@@ -11,7 +11,7 @@
 	</div>
 </div>
 
-<h1>{{ $blog->title }}<h1>
+<h1>{{ $blog->title }}</h1>
 
 {!! $blog->body !!}
 
