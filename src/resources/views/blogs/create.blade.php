@@ -37,7 +37,8 @@
 
 	<div class="checkbox">
 		<label>
-			<input name="published" type="checkbox" value="1" {{ old('published') ? 'checked="checked"' : '' }}> Publish
+			<input name="published" type="checkbox" value="1" {{ old('published') ? 'checked="checked"' : '' }}>
+			<noscript>Published</noscript>
 		</label>
 	</div>
 
@@ -62,9 +63,13 @@
 
 @section('styles')
 <link href="{{ asset('/vendor/yk/laravel-blogs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+
+<link href="{{ asset('/vendor/yk/laravel-blogs/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css') }}" rel="stylesheet">
 @append
 
 @section('scripts')
+<script src="{{ asset('/vendor/yk/laravel-blogs/bootstrap-switch/dist/js/bootstrap-switch.min.js') }}"></script>
+
 <script src="{{ asset('/vendor/yk/laravel-blogs/tinymce/tinymce.min.js') }}"></script>
 
 <script type="text/javascript">
@@ -81,6 +86,9 @@ $( document ).ready(function() {
 	  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 	  content_css: '//www.tinymce.com/css/codepen.min.css'
 	});
+
+	$("[name='published']").bootstrapSwitch({onText: 'Publish', offText: 'Draft'});
+	$(".checkbox > label").css("padding-left", "0px");
 })
 </script>
 @append
