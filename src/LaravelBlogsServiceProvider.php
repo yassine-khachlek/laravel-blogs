@@ -3,6 +3,7 @@
 namespace Yk\LaravelBlogs;
 
 use Illuminate\Support\ServiceProvider;
+use File;
 
 class LaravelBlogsServiceProvider extends ServiceProvider
 {
@@ -28,51 +29,10 @@ class LaravelBlogsServiceProvider extends ServiceProvider
             __DIR__.'/resources/assets' => public_path('vendor/yk/laravel-blogs'),
         ], 'public');
 
-        /**
-        * Routing
-        * Extend the app routes by adding a route group under the package namespace.
-        */
-
-        /*
-
-        */
-
-        /**
-        * Views
-        * Load the package views under the package namespace.
-        */
-
-        /*
-
-        */
-
-        /*
-        $this->publishes(
-            [
-                __DIR__.'/resources/views' => base_path('resources/views/vendor/Yk/LaravelBlog'),
-            ]
-        );
-
         $this->publishes([
-            __DIR__.'/public' => public_path('vendor/Yk/LaravelBlog'),
-        ], 'public');
-
-        $this->publishes([
-            __DIR__.'/config' => config_path('vendor/Yk/LaravelBlog'),
+            __DIR__.'/config' => config_path('vendor/yk/laravel-blogs'),
         ]);
 
-        $kernel = $this->app['Illuminate\Contracts\Http\Kernel'];
-        
-        $kernel->pushMiddleware('Yk\LaravelBlog\App\Http\Middleware\MiddlewareYkLaravelBlog');
-
-        
-
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                \Yk\LaravelBlog\App\Console\Commands\YkLaravelBlog::class,
-            ]);
-        }
-        */
     }
     
     /**
@@ -82,14 +42,14 @@ class LaravelBlogsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        /*
-        $this->mergeConfigFrom(
-            __DIR__.'/config/app.php', 'packages.Yk.LaravelBlog.app'
-        );
-
-        $this->app->bind('YkLaravelBlog', function(){
-            return $this->app->make('Yk\LaravelBlog\Classes\YkLaravelBlog');
-        });
-        */
+        if (File::exists(config_path('vendor/yk/laravel-blogs/languages.php'))) {
+            $this->mergeConfigFrom(
+                config_path('vendor/yk/laravel-blogs/languages.php'), 'yk.laravel-blogs.languages'
+            );
+        }else{
+            $this->mergeConfigFrom(
+                __DIR__.'/config/languages.php', 'yk.laravel-blogs.languages'
+            );
+        }
     }
 }

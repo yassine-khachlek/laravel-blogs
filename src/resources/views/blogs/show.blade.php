@@ -11,11 +11,22 @@
 	</div>
 </div>
 
-<h1>{{ $blog->title }}</h1>
+<h1>{{ $blog->locale->title }}</h1>
 
-{!! $blog->body !!}
+<div class="row">
+	<div class="col-md-12">
+		{!! $blog->locale->body !!}
+	</div>
+	<div class="col-md-12">
+		@if($blog->published)
+			<span class="label label-success">Published</span>
+		@else
+			<span class="label label-default">Draft</span>
+		@endif
+	</div>
+</div>
 
-<br><br>
+<br>
 
 <div class="row">
 	<div class="col-md-6">

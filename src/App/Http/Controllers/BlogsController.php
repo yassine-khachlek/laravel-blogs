@@ -5,6 +5,9 @@ namespace Yk\LaravelBlogs\App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Yk\LaravelBlogs\App\Blog;
+use Yk\LaravelBlogs\App\BlogTranslation;
+use Config;
+use DB;
 use Validator;
 
 class BlogsController extends Controller
@@ -39,10 +42,23 @@ class BlogsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|min:3|max:191',
-            'body' => 'required|min:150',
-        ]);
+        $data = [];
+        $rules = [];
+
+        foreach (Config::get('yk.laravel-blogs.languages') as $language_key => $language) {
+
+            $data['title_'.$language_key] = $request->get('title_'.$language_key);
+            $data['body_'.$language_key] = $request->get('body_'.$language_key);
+            $data['published_'.$language_key] = $request->get('published_'.$language_key) ?: false;
+
+            if ($request->get('published_'.$language_key)) {
+                $rules['title_'.$language_key] = 'required|min:3|max:191';
+                $rules['body_'.$language_key] = 'required|min:150';
+            }
+
+        }
+
+        $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
             if($request->ajax())
@@ -55,12 +71,28 @@ class BlogsController extends Controller
             }
         }
 
-        $blog = new Blog;
-        $blog->title = $request->get('title');
-        $blog->body = $request->get('body');
-        $blog->published = $request->get('published') ?: false;
+        DB::transaction(function () use ($request) {
 
-        $blog->save();
+            $blog = new Blog;
+            $blog->published = $request->get('published') ?: false;
+            $blog->save();
+
+            $translations = [];
+
+            foreach (Config::get('yk.laravel-blogs.languages') as $language_key => $language) {
+                
+                $translation = new BlogTranslation;
+                $translation->language_code = $language_key;
+                $translation->title = $request->get('title_'.$language_key);
+                $translation->body = $request->get('body_'.$language_key);
+                $translation->published = $request->get('published_'.$language_key) ?: false;
+                
+                $translations[] = $translation;
+            }
+
+            $blog->translations()->saveMany($translations);
+
+        });
 
         return redirect(route('blogs.index'));
     }
@@ -102,10 +134,23 @@ class BlogsController extends Controller
     {
         $blog = Blog::findOrFail($id);
 
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|min:3|max:191',
-            'body' => 'required|min:150',
-        ]);
+        $data = [];
+        $rules = [];
+
+        foreach (Config::get('yk.laravel-blogs.languages') as $language_key => $language) {
+
+            $data['title_'.$language_key] = $request->get('title_'.$language_key);
+            $data['body_'.$language_key] = $request->get('body_'.$language_key);
+            $data['published_'.$language_key] = $request->get('published_'.$language_key) ?: false;
+
+            if ($request->get('published_'.$language_key)) {
+                $rules['title_'.$language_key] = 'required|min:3|max:191';
+                $rules['body_'.$language_key] = 'required|min:150';
+            }
+
+        }
+
+        $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
             if($request->ajax())
@@ -118,11 +163,27 @@ class BlogsController extends Controller
             }
         }
 
-        $blog->title = $request->get('title');
-        $blog->body = $request->get('body');
-        $blog->published = $request->get('published') ?: false;
+        DB::transaction(function () use ($request, $blog) {
 
-        $blog->save();
+            $blog->published = $request->get('published') ?: false;
+            $blog->save();
+
+            $translations = [];
+
+            foreach (Config::get('yk.laravel-blogs.languages') as $language_key => $language) {
+                
+                $translation = BlogTranslation::where(['blog_id' => $blog->id, 'language_code' => $language_key])->first() ?: new BlogTranslation;
+                $translation->language_code = $language_key;
+                $translation->title = $request->get('title_'.$language_key);
+                $translation->body = $request->get('body_'.$language_key);
+                $translation->published = $request->get('published_'.$language_key) ?: false;
+                
+                $translations[] = $translation;
+            }
+
+            $blog->translations()->saveMany($translations);
+
+        });
 
         return redirect(route('blogs.index'));
     }
