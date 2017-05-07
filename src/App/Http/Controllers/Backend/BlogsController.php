@@ -21,7 +21,7 @@ class BlogsController extends Controller
     {
         $blogs = Blog::orderBy('id', 'desc')->paginate(10);
 
-        return view('Yk\LaravelBlogs::blogs.index', compact('blogs'));
+        return view('Yk\LaravelBlogs::backend.blogs.index', compact('blogs'));
     }
 
     /**
@@ -31,7 +31,7 @@ class BlogsController extends Controller
      */
     public function create()
     {
-        return view('Yk\LaravelBlogs::blogs.create');
+        return view('Yk\LaravelBlogs::backend.blogs.create');
     }
 
     /**
@@ -107,7 +107,7 @@ class BlogsController extends Controller
     {
         $blog = Blog::findOrFail($id);
 
-        return view('Yk\LaravelBlogs::blogs.show', compact('blog'));
+        return view('Yk\LaravelBlogs::backend.blogs.show', compact('blog'));
     }
 
     /**
@@ -120,7 +120,7 @@ class BlogsController extends Controller
     {
         $blog = Blog::findOrFail($id);
 
-        return view('Yk\LaravelBlogs::blogs.edit', compact('blog'));
+        return view('Yk\LaravelBlogs::backend.blogs.edit', compact('blog'));
     }
 
     /**

@@ -11,7 +11,15 @@
 |
 */
 
-Route::group(['prefix' => '/backend/blog', 'as' => 'blogs.', 'namespace' => 'Backend'], function () {
+Route::group(['prefix' => '/blog', 'as' => 'frontend.blogs.'], function () {
+	
+	Route::get('/', 'BlogsController@index')->name('index');
+	
+	Route::get('/{id}', 'BlogsController@show')->name('show');
+
+});
+
+Route::group(['prefix' => '/backend/blog', 'as' => 'backend.blogs.', 'namespace' => 'Backend'], function () {
 
 	Route::get('/', 'BlogsController@index')->name('index');
 

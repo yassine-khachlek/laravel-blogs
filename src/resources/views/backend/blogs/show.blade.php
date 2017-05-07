@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="form-group">
-			<a href="{{ Route::has('blogs.index') ? route('blogs.index') : '#' }}" class="btn btn-lg btn-primary btn-block">
+			<a href="{{ Route::has('backend.blogs.index') ? route('backend.blogs.index') : '#' }}" class="btn btn-lg btn-primary btn-block">
 				<i class="fa fa-list" aria-hidden="true"></i>
 			</a>
 		</div>
@@ -31,7 +31,7 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="form-group">
-			<form action="{{ Route::has('blogs.destroy') ? route('blogs.destroy', ['id' => $blog->id]) : '#' }}" method="POST" onsubmit="return confirm('Do you really want to delete the post?');">
+			<form action="{{ Route::has('backend.blogs.destroy') ? route('backend.blogs.destroy', ['id' => $blog->id]) : '#' }}" method="POST" onsubmit="return confirm('Do you really want to delete the post?');">
 				{{ method_field('DELETE') }}
 				{{ csrf_field() }}
 				<button type="submit" class="btn btn-lg btn-danger btn-block">
@@ -42,7 +42,7 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			<a href="{{ Route::has('blogs.edit') ? route('blogs.edit', ['id' => $blog->id]) : '#' }}" class="btn btn-lg btn-warning btn-block">
+			<a href="{{ Route::has('backend.blogs.edit') ? route('backend.blogs.edit', ['id' => $blog->id]) : '#' }}" class="btn btn-lg btn-warning btn-block">
 				<i class="fa fa-edit" aria-hidden="true"></i>
 			</a>
 		</div>

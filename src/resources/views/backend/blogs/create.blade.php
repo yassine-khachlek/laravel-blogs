@@ -4,19 +4,20 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="form-group">
-			<a href="{{ Route::has('blogs.index') ? route('blogs.index') : '#' }}" class="btn btn-lg btn-primary btn-block">
+			<a href="{{ Route::has('backend.blogs.index') ? route('backend.blogs.index') : '#' }}" class="btn btn-lg btn-primary btn-block">
 				<i class="fa fa-list" aria-hidden="true"></i>
 			</a>
 		</div>
 	</div>
 </div>
 
-<form action="{{ Route::has('blogs.update') ? route('blogs.update', ['id' => $blog->id]) : '#' }}" method="POST">
-	{{ method_field('PATCH') }}
+<form action="{{ Route::has('backend.blogs.store') ? route('backend.blogs.store') : '#' }}" method="POST">
+	{{ method_field('POST') }}
 	{{ csrf_field() }}
 
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	@foreach(Config::get('yk.laravel-blogs.languages') as $language_key => $language)
+		
 	  <div class="panel panel-default">
 	    <div class="panel-heading" role="tab" id="headingOne">
 	      <h4 class="panel-title">
@@ -32,7 +33,7 @@
 	      <div class="panel-body">
 
 			<div class="form-group{{ $errors->has('title_'.$language_key) ? ' has-error' : '' }}">
-			    <input name="title_{{ $language_key }}" type="text" value="{{ old('title', $blog->getTranslation($language_key)->title) }}" class="form-control" placeholder="Title">
+			    <input name="title_{{ $language_key }}" type="text" value="{{ old('title_'.$language_key) }}" class="form-control" placeholder="Title">
 
 		        @if ($errors->has('title_'.$language_key))
 		            <span class="help-block">
@@ -42,7 +43,7 @@
 			</div>
 
 			<div class="form-group{{ $errors->has('body_'.$language_key) ? ' has-error' : '' }}">
-			    <textarea name="body_{{ $language_key }}" rows="10" class="form-control" placeholder="Body">{{ old('body', $blog->getTranslation($language_key)->body) }}</textarea>
+			    <textarea name="body_{{ $language_key }}" rows="10" class="form-control" placeholder="Body">{{ old('body_'.$language_key) }}</textarea>
 
 		        @if ($errors->has('body_'.$language_key))
 		            <span class="help-block">
@@ -53,21 +54,21 @@
 
 			<div class="checkbox">
 				<label>
-					<input name="published_{{ $language_key }}" type="checkbox" value="1" {{ old('published_'.$language_key, $blog->getTranslation($language_key)->published) ? 'checked="checked"' : '' }}>
+					<input name="published_{{ $language_key }}" type="checkbox" value="1" {{ old('published_'.$language_key) ? 'checked="checked"' : '' }}>
 					<noscript>Publish</noscript>
 				</label>
 			</div>
 
 	      </div>
 	    </div>
-	  </div>
+	  </div>		
 
 	@endforeach
 	</div>
 
 	<div class="checkbox">
 		<label>
-			<input name="published" type="checkbox" value="1" {{ old('published', $blog->published) ? 'checked="checked"' : '' }}>
+			<input name="published" type="checkbox" value="1" {{ old('published') ? 'checked="checked"' : '' }}>
 			<noscript>Publish</noscript>
 		</label>
 	</div>
@@ -75,7 +76,7 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
-				<a href="{{ Route::has('blogs.index') ? route('blogs.index') : '#' }}" class="btn btn-lg btn-block btn-default">
+				<a href="{{ Route::has('backend.blogs.index') ? route('backend.blogs.index') : '#' }}" class="btn btn-lg btn-block btn-default">
 					CANCEL
 				</a>
 			</div>

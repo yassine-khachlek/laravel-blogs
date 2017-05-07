@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="form-group">
-			<a href="{{ Route::has('blogs.create') ? route('blogs.create') : '#' }}" class="btn btn-lg btn-success btn-block">
+			<a href="{{ Route::has('backend.blogs.create') ? route('backend.blogs.create') : '#' }}" class="btn btn-lg btn-success btn-block">
 				<i class="fa fa-plus" aria-hidden="true"></i>
 			</a>
 		</div>
@@ -36,7 +36,7 @@
 					@endif
 				</td>
 				<td>
-					<form action="{{ Route::has('blogs.destroy') ? route('blogs.destroy', ['id' => $blog->id]) : '#' }}" method="POST" class="form-inline pull-right">
+					<form action="{{ Route::has('backend.blogs.destroy') ? route('backend.blogs.destroy', ['id' => $blog->id]) : '#' }}" method="POST" class="form-inline pull-right">
 						{{ method_field('DELETE') }}
 						{{ csrf_field() }}
 						<button type="submit" class="btn btn-lg btn-danger">
@@ -44,11 +44,11 @@
 						</button>
 					</form>
 
-					<a href="{{ Route::has('blogs.edit') ? route('blogs.edit', ['id' => $blog->id]) : '#' }}" class="btn btn-lg btn-warning pull-right">
+					<a href="{{ Route::has('backend.blogs.edit') ? route('backend.blogs.edit', ['id' => $blog->id]) : '#' }}" class="btn btn-lg btn-warning pull-right">
 						<i class="fa fa-edit" aria-hidden="true"></i>
 					</a>
 
-					<a href="{{ Route::has('blogs.show') ? route('blogs.show', ['id' => $blog->id]) : '#' }}" class="btn btn-lg btn-primary pull-right">
+					<a href="{{ Route::has('backend.blogs.show') ? route('backend.blogs.show', ['id' => $blog->id]) : '#' }}" class="btn btn-lg btn-primary pull-right">
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</a>
 				</td>
