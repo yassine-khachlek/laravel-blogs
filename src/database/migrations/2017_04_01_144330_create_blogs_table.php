@@ -26,15 +26,15 @@ class CreateBlogsTable extends Migration
             }
 
             if ( ! Schema::hasColumn($table->getTable(), 'created_at') ) {
-                $table->dateTime('created_at');
+                $table->timestamp('created_at')->useCurrent();
             }
 
             if ( ! Schema::hasColumn($table->getTable(), 'updated_at') ) {
-                $table->timestamp('updated_at');
+                $table->timestamp('updated_at')->useCurrent();
             }
 
             if ( ! Schema::hasColumn($table->getTable(), 'deleted_at') ) {
-                $table->dateTime('deleted_at')->nullable();
+                $table->timestamp('deleted_at')->nullable();
             }
 
         });
