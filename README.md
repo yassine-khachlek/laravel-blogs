@@ -19,8 +19,10 @@ Yk\LaravelBlogs\LaravelBlogsServiceProvider,
 Publishing the package assets:
 
 ```
-php artisan vendor:publish --provider="Yk\LaravelBlogs\LaravelBlogsServiceProvider"
+php artisan vendor:publish --provider="Yk\LaravelBlogs\LaravelBlogsServiceProvider::class"
 ```
+
+Please make sure that your blade layout include directives @yield('styles') and @yield('scripts'), so the package can inject necessary assets.
 
 ## License
 
