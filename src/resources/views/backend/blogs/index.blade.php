@@ -12,7 +12,7 @@
 </div>
 
 @if($blogs->count())
-	<table id="blogs-table" class="table table-striped table-hover">
+	<table id="blogs-table" class="table table-striped table-hover display responsive no-wrap" width="100%"">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -79,6 +79,9 @@
 <link rel="stylesheet" href="{{ asset('/vendor/yk/laravel-blogs/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 
 <style type="text/css">
+	.table > tbody > tr > td:first-child{
+		width: 100px;
+	}
 	.table > tbody > tr > td:last-child > a {
 		margin-left: 8px;
 	}
@@ -101,7 +104,11 @@ $(function() {
 	var showURL='{{ Route::has('backend.blogs.show') ? route('backend.blogs.show', ["id" => "id"]) : '#' }}'
 
     $('#blogs-table').DataTable({
-    	"order": [[ 0, 'desc' ]],
+	    responsive: {
+	        details: false
+	    },
+    	order: [[ 0, 'desc' ]],
+		pageLength: 10,
         language: {
             "url": "{{ asset('/vendor/yk/laravel-blogs/datatables-i18n/i18n/en.json') }}"
         },
@@ -111,7 +118,13 @@ $(function() {
         ajax: '{{ route('backend.blogs.datatables.data') }}',
         
         columns: [
-            { data: 'id', name: 'id' },
+            { 
+            	data: 'id',
+            	name: 'id',
+            	render: function( data, type, full, meta ) {
+                    return '0'.repeat(9 - data.length) + data;
+                }
+            },
             { 
                 data: 'title',
                 name: 'translations.title',
