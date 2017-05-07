@@ -94,7 +94,7 @@ class BlogsController extends Controller
 
         });
 
-        return redirect(route('blogs.index'));
+        return redirect(route('backend.blogs.index'));
     }
 
     /**
@@ -185,7 +185,7 @@ class BlogsController extends Controller
 
         });
 
-        return redirect(route('blogs.index'));
+        return redirect(route('backend.blogs.index'));
     }
 
     /**
@@ -200,6 +200,6 @@ class BlogsController extends Controller
 
         $blog->delete();
 
-        return redirect(route('blogs.index'));
+        return redirect(route('backend.blogs.index'));
     }
 }
