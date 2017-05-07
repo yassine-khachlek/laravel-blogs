@@ -17,6 +17,8 @@
 			<tr>
 				<th>ID</th>
 				<th>Title</th>
+				<th>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -36,6 +38,7 @@
 						<span class="label label-default pull-right">Draft</span>
 					@endif
 				</td>
+				--}}
 				<td>
 					<form action="{{ Route::has('backend.blogs.destroy') ? route('backend.blogs.destroy', ['id' => $blog->id]) : '#' }}" method="POST" class="form-inline pull-right" onsubmit="return confirm('Do you really want to delete the post?');">
 						{{ method_field('DELETE') }}
@@ -53,7 +56,6 @@
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</a>
 				</td>
-				--}}
 			</tr>
 		@endforeach
 		</tbody>
@@ -91,7 +93,15 @@
 <script src="{{ asset('/vendor/yk/laravel-blogs/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <script>
 $(function() {
+
+	var deleteURL='{{ Route::has('backend.blogs.destroy') ? route('backend.blogs.destroy', ["id" => "id"]) : '#' }}';
+
+	var editURL='{{ Route::has('backend.blogs.edit') ? route('backend.blogs.edit', ["id" => "id"]) : '#' }}';
+
+	var showURL='{{ Route::has('backend.blogs.show') ? route('backend.blogs.show', ["id" => "id"]) : '#' }}'
+
     $('#blogs-table').DataTable({
+    	"order": [[ 0, 'desc' ]],
         language: {
             "url": "{{ asset('/vendor/yk/laravel-blogs/datatables-i18n/i18n/en.json') }}"
         },
@@ -107,6 +117,17 @@ $(function() {
                 name: 'translations.title',
                 render: function( data, type, full, meta ) {
                     return full.locale.title;
+                } 
+            },
+            { 
+                data: 'id',
+                name: 'id',
+                render: function( data, type, full, meta ) {
+                    return '<form action="'+deleteURL.replace('id', data)+'" method="POST" class="form-inline pull-right" onsubmit="return confirm(\'Do you really want to delete the post?\');">{{ method_field('DELETE') }}{{ csrf_field() }}<button type="submit" class="btn btn-lg btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></form>'
+                    	+ 
+                    	'<a href="'+editURL.replace('id', data)+'" class="btn btn-lg btn-warning pull-right"><i class="fa fa-edit" aria-hidden="true"></i></a>'
+                    	+
+                    	'<a href="'+showURL.replace('id', data)+'" class="btn btn-lg btn-primary pull-right"><i class="fa fa-eye" aria-hidden="true"></i></a>';
                 } 
             }
         ]
