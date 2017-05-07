@@ -8,8 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <title>@yield('head.title')</title>
+    <meta name="description" content="@yield('head.meta.description')">
+    
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="{{ asset('/vendor/yk/laravel-blogs/bootstrap/dist/css/bootstrap.min.css') }}">
 

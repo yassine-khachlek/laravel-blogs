@@ -15,7 +15,7 @@ Route::group(['prefix' => '/blog', 'as' => 'frontend.blogs.'], function () {
 	
 	Route::get('/', 'BlogsController@index')->name('index');
 	
-	Route::get('/{id}', 'BlogsController@show')->name('show');
+	Route::get('/{id}/{slug?}', 'BlogsController@show')->name('show');
 
 });
 

@@ -4,12 +4,14 @@
 	@if($blogs->count())
 		@foreach($blogs as $blog)
 			<h2>
-				<a href="{{ Route::has('frontend.blogs.show') ? route('frontend.blogs.show', ['id' => $blog->id]) : '#' }}">
+				<a href="{{ Route::has('frontend.blogs.show') ? route('frontend.blogs.show', ['id' => $blog->id, 'slug' => str_slug($blog->locale->title, '-')]) : '#' }}">
 					{{ $blog->locale->title }}
 				</a>
 			</h2>
 
-			{!! $blog->locale->body !!}
+			<p>
+				{{ str_limit(preg_replace('/\s+/', ' ', trim(strip_tags(str_replace("&nbsp;", "", $blog->locale->body)))), 255, '...') }}
+			</p>
 
 			<a href="{{ Route::has('frontend.blogs.show') ? route('frontend.blogs.show', ['id' => $blog->id]) : '#' }}" class="btn btn-lg btn-primary btn-block">
 				Read more...
