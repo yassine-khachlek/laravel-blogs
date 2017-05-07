@@ -37,4 +37,24 @@ class Blog extends Model
     {
         return $this->getTranslation(App::getLocale());
     }
+
+    public function getSlugAttribute() {
+        return str_slug($this->locale->title, '-');
+    }
+
+    public function getTitleAttribute() {
+        return str_limit($this->locale->title, 60, '');
+    }
+
+    public function getDescriptionAttribute() {
+        return str_limit(preg_replace('/\s+/', ' ', trim(strip_tags(str_replace("&nbsp;", " ", $this->locale->body)))), 160, '...');
+    }
+
+    public function getMetaTitleAttribute() {
+        return $this->title;
+    }
+
+    public function getMetaDescriptionAttribute() {
+        return $this->description;
+    }
 }

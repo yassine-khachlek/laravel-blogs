@@ -14,16 +14,16 @@
 	<link href="{{ asset('/vendor/yk/laravel-blogs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
 	<meta property="og:site_name" content="{{ config('app.name', '') }}">
-	<meta property="og:title" content="{{ $blog->locale->title }}">
-	<meta property="og:description" content="{{ str_limit(preg_replace('/\s+/', ' ', trim(strip_tags(str_replace("&nbsp;", "", $blog->locale->body)))), 160, '') }}">
+	<meta property="og:title" content="{{ $blog->meta_title }}">
+	<meta property="og:description" content="{{ $blog->meta_description }}">
 	{{--
-	<meta property="og:image" content="http://euro-travel-example.com/thumbnail.jpg">
+	<meta property="og:image" content="">
 	--}}
-	<meta property="og:url" content="{{ route('frontend.blogs.show', ['id' => $blog->id]) }}">
+	<meta property="og:url" content="{{ route('frontend.blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
 	<meta property="og:type" content="website">
 
-	<meta name="twitter:title" content="{{ $blog->locale->title }}">
-	<meta name="twitter:description" content="{{ str_limit(preg_replace('/\s+/', ' ', trim(strip_tags(str_replace("&nbsp;", "", $blog->locale->body)))), 160, '') }}">
+	<meta name="twitter:title" content="{{ $blog->meta_title }}">
+	<meta name="twitter:description" content="{{ $blog->meta_description }}">
 	{{--
 	<meta name="twitter:image" content="">
 	--}}
@@ -31,7 +31,7 @@
 	<meta name="twitter:image:alt" content="{{ $blog->locale->title }}">
 @append
 
-@section('head.title'){{ str_limit($blog->locale->title, 60, '') }}@append
+@section('head.title'){{ $blog->meta_title }}@append
 
-@section('head.meta.description'){{ str_limit(preg_replace('/\s+/', ' ', trim(strip_tags(str_replace("&nbsp;", "", $blog->locale->body)))), 160, '') }}@append
+@section('head.meta.description'){{ $blog->meta_description }}@append
 
