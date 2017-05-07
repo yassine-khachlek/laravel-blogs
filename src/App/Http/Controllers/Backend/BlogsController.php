@@ -1,6 +1,6 @@
 <?php
 
-namespace Yk\LaravelBlogs\App\Http\Controllers;
+namespace Yk\LaravelBlogs\App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 
