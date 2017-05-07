@@ -13,7 +13,7 @@
 				{{ $blog->description }}
 			</p>
 
-			<a href="{{ Route::has('frontend.blogs.show') ? route('frontend.blogs.show', ['id' => $blog->id]) : '#' }}" class="btn btn-lg btn-primary btn-block">
+			<a href="{{ Route::has('frontend.blogs.show') ? route('frontend.blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) : '#' }}" class="btn btn-lg btn-primary btn-block">
 				Read more...
 			</a>
 		@endforeach

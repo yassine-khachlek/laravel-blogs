@@ -3,7 +3,11 @@
 @section('content')
 	<h1>{{ $blog->locale->title }}</h1>
 
-	{!! $blog->locale->body !!}
+	<div class="row blog-post">
+		<div class="col-xs-12">
+			{!! $blog->locale->body !!}
+		</div>
+	</div>
 
 	<a href="{{ Route::has('frontend.blogs.index') ? route('frontend.blogs.index') : '#' }}" class="btn btn-lg btn-default btn-block">
 		Back
@@ -29,6 +33,12 @@
 	--}}
 	<meta name="twitter:card" content="{{ route('frontend.blogs.show', ['id' => $blog->id]) }}">
 	<meta name="twitter:image:alt" content="{{ $blog->locale->title }}">
+
+	<style type="text/css">
+		.blog-post {
+		    word-wrap:break-word;
+		}
+	</style>
 @append
 
 @section('head.title'){{ $blog->meta_title }}@append
