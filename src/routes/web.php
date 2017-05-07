@@ -35,4 +35,6 @@ Route::group(['prefix' => '/backend/blog', 'as' => 'backend.blogs.', 'namespace'
 
 	Route::delete('/{id}', 'BlogsController@destroy')->name('destroy');
 
+	Route::get('/datatables/data', 'BlogsController@datatables')->name('datatables.data');
+
 });

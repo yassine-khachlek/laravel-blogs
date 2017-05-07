@@ -9,6 +9,7 @@ use Yk\LaravelBlogs\App\BlogTranslation;
 use Config;
 use DB;
 use Validator;
+use Yajra\Datatables\Datatables;
 
 class BlogsController extends Controller
 {
@@ -201,5 +202,17 @@ class BlogsController extends Controller
         $blog->delete();
 
         return redirect(route('backend.blogs.index'));
+    }
+
+    /**
+     * Process datatables ajax request.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function datatables()
+    {
+        $query = Blog::with('translations');
+        
+        return Datatables::of($query)->make(true);
     }
 }

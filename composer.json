@@ -13,7 +13,10 @@
             "email": "yassine.khachlek@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": ">=5.6.4",
+        "yajra/laravel-datatables-oracle": "^7.4"
+    },
     "autoload": {
         "classmap": [
             "src/"

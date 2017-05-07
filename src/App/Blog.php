@@ -8,6 +8,13 @@ use App;
 class Blog extends Model
 {
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['locale'];
+
+    /**
      * Get the translations for the blog post.
      */
     public function translations()

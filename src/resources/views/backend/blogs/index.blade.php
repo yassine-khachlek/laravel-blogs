@@ -12,14 +12,14 @@
 </div>
 
 @if($blogs->count())
-	<table class="table table-striped table-hover">
+	<table id="blogs-table" class="table table-striped table-hover">
 		<thead>
-			<th>ID</th>
-			<th>Title</th>
-			<th></th>
-			<th></th>
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+			</tr>
 		</thead>
-		<body>
+		<tbody>
 		@foreach($blogs as $blog)
 			<tr>
 				<td>
@@ -28,6 +28,7 @@
 				<td>
 					{{ $blog->locale->title }}
 				</td>
+				{{--
 				<td>
 					@if($blog->published)
 						<span class="label label-success pull-right">Published</span>
@@ -52,14 +53,17 @@
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</a>
 				</td>
+				--}}
 			</tr>
 		@endforeach
-		</body>
+		</tbody>
 	</table>
 
+	<noscript>
 	@if( method_exists($blogs, 'links') )
 		{{ $blogs->links() }}
 	@endif
+	</noscript>
 @else
 	<div class="alert alert-danger" role="alert">
 		No items available.
@@ -70,6 +74,8 @@
 @section('styles')
 <link href="{{ asset('/vendor/yk/laravel-blogs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
+<link rel="stylesheet" href="{{ asset('/vendor/yk/laravel-blogs/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+
 <style type="text/css">
 	.table > tbody > tr > td:last-child > a {
 		margin-left: 8px;
@@ -78,4 +84,27 @@
 		margin-left: 8px;
 	}
 </style>
+@append
+
+@section('scripts')
+<script src="{{ asset('/vendor/yk/laravel-blogs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('/vendor/yk/laravel-blogs/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script>
+$(function() {
+    $('#blogs-table').DataTable({
+        language: {
+            "url": "{{ asset('/vendor/yk/laravel-blogs/datatables-i18n/i18n/en.json') }}"
+        },
+        processing: true,
+        serverSide: true,
+        
+        ajax: '{{ route('backend.blogs.datatables.data') }}',
+        
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'locale.title', name: 'translations.title' }
+        ]
+    });
+});
+</script>
 @append
