@@ -102,7 +102,13 @@ $(function() {
         
         columns: [
             { data: 'id', name: 'id' },
-            { data: 'locale.title', name: 'translations.title' }
+            { 
+                data: 'title',
+                name: 'translations.title',
+                render: function( data, type, full, meta ) {
+                    return full.locale.title;
+                } 
+            }
         ]
     });
 });

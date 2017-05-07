@@ -211,7 +211,7 @@ class BlogsController extends Controller
      */
     public function datatables()
     {
-        $query = Blog::with('translations');
+        $query = Blog::with(['translations'])->select('blogs.*');
         
         return Datatables::of($query)->make(true);
     }
