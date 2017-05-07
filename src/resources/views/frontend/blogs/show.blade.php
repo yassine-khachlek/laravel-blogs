@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('Yk\LaravelBlogs::layouts.app')
 
 @section('content')
 <h1>{{ $blog->locale->title }}</h1>

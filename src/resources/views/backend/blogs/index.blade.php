@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('Yk\LaravelBlogs::layouts.app')
 
 @section('content')
 <div class="row">
@@ -23,7 +23,7 @@
 		@foreach($blogs as $blog)
 			<tr>
 				<td>
-					{{ $blog->id }}
+					{{ str_pad($blog->id, 9, 0, STR_PAD_LEFT) }}
 				</td>
 				<td>
 					{{ $blog->locale->title }}
@@ -36,7 +36,7 @@
 					@endif
 				</td>
 				<td>
-					<form action="{{ Route::has('backend.blogs.destroy') ? route('backend.blogs.destroy', ['id' => $blog->id]) : '#' }}" method="POST" class="form-inline pull-right">
+					<form action="{{ Route::has('backend.blogs.destroy') ? route('backend.blogs.destroy', ['id' => $blog->id]) : '#' }}" method="POST" class="form-inline pull-right" onsubmit="return confirm('Do you really want to delete the post?');">
 						{{ method_field('DELETE') }}
 						{{ csrf_field() }}
 						<button type="submit" class="btn btn-lg btn-danger">
